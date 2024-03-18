@@ -1,0 +1,67 @@
+<ul>
+    <li *ngFor="let employee of employees">
+      {{ employee.EmployeeNumber }} - {{ employee.LastName }}, {{ employee.FirstName }}
+      <button (click)="showDetail(employee)">Details</button>
+      <button (click)="editEmployee(employee)">Edit</button>
+      <button (click)="deleteEmployee(employee)">Delete</button>
+    </li>
+  </ul>
+  
+  <div *ngIf="selectedEmployee">
+    <h2>Details of {{ selectedEmployee.FirstName }} {{ selectedEmployee.LastName }}</h2>
+    <p>Employee Number: {{ selectedEmployee.EmployeeNumber }}</p>
+    <p>Birthday: {{ selectedEmployee.Birthday | date }}</p>
+    <p>Gender: {{ selectedEmployee.Gender }}</p>
+    <p><img [src]="selectedEmployee.Picture" alt="Employee Picture"></p>
+  </div>
+  
+  <div *ngIf="editingEmployee">
+    <h2>Edit Employee</h2>
+    <form (submit)="saveEdit()">
+      <label for="editEmployeeNumber">Employee Number:</label>
+      <input type="text" id="editEmployeeNumber" name="editEmployeeNumber" [(ngModel)]="editingEmployee.EmployeeNumber" required><br>
+  
+      <label for="editFirstName">First Name:</label>
+      <input type="text" id="editFirstName" name="editFirstName" [(ngModel)]="editingEmployee.FirstName" required><br>
+  
+      <label for="editLastName">Last Name:</label>
+      <input type="text" id="editLastName" name="editLastName" [(ngModel)]="editingEmployee.LastName" required><br>
+  
+      <label for="editBirthday">Birthday:</label>
+      <input type="date" id="editBirthday" name="editBirthday" [(ngModel)]="editingEmployee.Birthday" required><br>
+  
+      <label for="editGender">Gender:</label>
+      <input type="text" id="editGender" name="editGender" [(ngModel)]="editingEmployee.Gender" required><br>
+  
+      <label for="editPicture">Picture (URL):</label>
+      <input type="text" id="editPicture" name="editPicture" [(ngModel)]="editingEmployee.Picture" required><br>
+  
+      <button type="submit">Save</button>
+      <button type="button" (click)="cancelEdit()">Cancel</button>
+    </form>
+  </div>
+  
+  <h2>Add New Employee</h2>
+<form (submit)="addEmployee()">
+  <label for="newEmployeeNumber">Employee Number:</label>
+  <input type="text" id="newEmployeeNumber" name="newEmployeeNumber" [(ngModel)]="newEmployee.EmployeeNumber" required><br>
+
+  <label for="newFirstName">First Name:</label>
+  <input type="text" id="newFirstName" name="newFirstName" [(ngModel)]="newEmployee.FirstName" required><br>
+
+  <label for="newLastName">Last Name:</label>
+  <input type="text" id="newLastName" name="newLastName" [(ngModel)]="newEmployee.LastName" required><br>
+
+  <label for="newBirthday">Birthday:</label>
+  <input type="date" id="newBirthday" name="newBirthday" [(ngModel)]="newEmployee.Birthday" required><br>
+
+  <label>Gender:</label><br>
+  <input type="radio" id="male" name="gender" value="Male" [(ngModel)]="newEmployee.Gender"> <label for="male">Male</label><br>
+  <input type="radio" id="female" name="gender" value="Female" [(ngModel)]="newEmployee.Gender"> <label for="female">Female</label><br>
+  <input type="radio" id="other" name="gender" value="Other" [(ngModel)]="newEmployee.Gender"> <label for="other">Other</label><br>
+
+  <label for="newPicture">Picture (URL):</label>
+  <input type="text" id="newPicture" name="newPicture" [(ngModel)]="newEmployee.Picture" required><br>
+
+  <button type="submit">Add</button>
+</form>
